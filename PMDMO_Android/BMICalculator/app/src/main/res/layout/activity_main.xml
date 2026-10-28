@@ -42,11 +42,14 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/metric"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/metric" />
 
                 <RadioButton
+                    android:id="@+id/imperial"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/imperial" />
@@ -71,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/weight"
-                app:suffixText="kg">
+                app:suffixText="@string/metricWeight">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inWeight"
@@ -84,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/height"
-                app:suffixText="m">
+                app:suffixText="@string/metricHeight">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inHeight"
@@ -114,15 +117,23 @@
                 android:id="@+id/btReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reset" />
+                android:text="@string/reset"
+                android:layout_marginStart="10dp" />
         </LinearLayout>
-
+        <!-- BMI Index -->
         <TextView
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:text=""
             android:textAlignment="center" />
+        <!-- IMAGE -->
+        <ImageView
+            android:id="@+id/imClassification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/normal_weight"
+            android:visibility="invisible" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,18 @@
 <resources>
-    <string name="app_name">BMICalculator</string>
-    <string name="title">BMI Calculator</string>
+    <string name="app_name">BMI Calculator</string>
+
     <string name="unit_system">Unit system:</string>
     <string name="imperial">Imperial</string>
     <string name="convert">Convert</string>
     <string name="metric">Metric</string>
+    <string name="reset">Reset</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="with_classification">With classification</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="metricWeight">kg</string>
+    <string name="metricHeight">m</string>
+    <string name="imperialWeight">lb</string>
+    <string name="imperialHeight">in</string>
+
 </resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BMICalculator</string>
+    <string name="title">BMI Calculator</string>
+    <string name="unit_system">Unit system:</string>
+    <string name="imperial">Imperial</string>
+    <string name="convert">Convert</string>
+    <string name="metric">Metric</string>
+</resources>

@@ -12,7 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val convertSwitch = findViewById<SwitchMaterial>(R.id.swConvert)
 
         val unitOption = findViewById<RadioGroup>(R.id.ragOptions)
 
@@ -44,14 +46,21 @@ class MainActivity : AppCompatActivity() {
 
 
         unitOption.setOnCheckedChangeListener { _, i ->
+            val convert = convertSwitch.isChecked
 
-            if (i == R.id.metric) {
+            if (i == R.id.imperial) {
                 weightLayout.suffixText = getString(R.string.imperialWeight)
                 heightLayout.suffixText = getString(R.string.imperialHeight)
             } else {
                 weightLayout.suffixText = getString(R.string.metricWeight)
                 heightLayout.suffixText = getString(R.string.metricHeight)
             }
+
+            if (convert) {
+                val currentValue = weightLayout.editText?.text.toString().toDouble()
+                weightLayout.editText?.setText("${currentValue * 703}")
+            }
+
         }
 
         calculateButton.setOnClickListener {

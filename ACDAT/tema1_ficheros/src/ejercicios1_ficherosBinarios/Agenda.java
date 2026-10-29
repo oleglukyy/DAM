@@ -3,8 +3,7 @@ package ejercicios1_ficherosBinarios;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Agenda {
     public static void main(String[] args) {
@@ -21,24 +20,22 @@ public class Agenda {
     private void readData(Path file) {
 
         StringBuilder text = new StringBuilder();
-        char character;
+
 
         try (DataInputStream reader = new DataInputStream(new FileInputStream(file.toFile()))) {
-
-            System.out.println(reader.readUTF());
-            System.out.println(reader.readUTF());
-            System.out.println(reader.readUTF());
-            System.out.println(reader.readInt());
-            System.out.println(reader.readUTF());
-            System.out.println(reader.readBoolean());
-            System.out.println(reader.readDouble());
             while (true) {
-
-                character = reader.readChar();
-                text.append(character);
+                System.out.println("-----------------------------------------------");
+                System.out.println(reader.readUTF());
+                System.out.println(reader.readUTF());
+                System.out.println(reader.readUTF());
+                System.out.println(reader.readInt());
+                System.out.println(reader.readUTF());
+                System.out.println(reader.readBoolean());
+                System.out.println(reader.readDouble());
             }
+
         } catch (EOFException e) {
-            System.out.println("Excepcion: " + text);
+            System.out.println("No hay más contactos existentes");
         } catch (FileNotFoundException e) {
             System.err.printf("El fichero no existe: %s", e.getMessage());
         } catch (IOException e) {

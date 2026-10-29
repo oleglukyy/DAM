@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val convertSwitch = findViewById<SwitchMaterial>(R.id.swConvert)
-
         val unitOption = findViewById<RadioGroup>(R.id.ragOptions)
 
         val weightLayout = findViewById<TextInputLayout>(R.id.layoutWeight)
@@ -47,37 +46,47 @@ class MainActivity : AppCompatActivity() {
 
         unitOption.setOnCheckedChangeListener { _, i ->
             val convert = convertSwitch.isChecked
+            val currentWeight = weightLayout.editText?.text.toString().toDoubleOrNull()
+            val currentHeight = heightLayout.editText?.text.toString().toDoubleOrNull()
 
             if (i == R.id.imperial) {
                 weightLayout.suffixText = getString(R.string.imperialWeight)
                 heightLayout.suffixText = getString(R.string.imperialHeight)
+                if (convert && currentWeight != null && currentHeight != null) {
+                    weightLayout.editText?.setText("${currentWeight * 2.2}")
+                    heightLayout.editText?.setText("${currentHeight * 39.3}")
+
+                }
             } else {
                 weightLayout.suffixText = getString(R.string.metricWeight)
                 heightLayout.suffixText = getString(R.string.metricHeight)
+                if (convert && currentWeight != null && currentHeight != null) {
+                    weightLayout.editText?.setText("${currentWeight / 2.2}")
+                    heightLayout.editText?.setText("${currentHeight / 39.3}")
+                }
             }
 
-            if (convert) {
-                val currentValue = weightLayout.editText?.text.toString().toDouble()
-                weightLayout.editText?.setText("${currentValue * 703}")
-            }
+
 
         }
 
         calculateButton.setOnClickListener {
 
 
-            val isWeightValid = validateInput(weightLayout)
-            val isHeightValid = validateInput(heightLayout)
+            val weight = getValidNumber(weightLayout)
+            val height = getValidNumber(heightLayout)
 
-            if (isWeightValid && isHeightValid) {
+            if (weight !=null && height !=null) {
+                var bmi = weight / (height * height)
+                    if (unitOption.checkedRadioButtonId == R.id.imperial) {
+                        bmi *= 703
+                    }
 
-                val weight = weightLayout.editText?.text.toString().toDouble()
-                val height = heightLayout.editText?.text.toString().toDouble()
+                    result.text = "BMI: %.2f".format(bmi)
+                    result.setBackgroundColor(Color.MAGENTA)
 
-                val bmi = weight / (height * height)
 
-                result.text = "BMI: %.2f".format(bmi)
-                result.setBackgroundColor(Color.MAGENTA)
+
 
                 if (classCheckBox.isChecked) {
                     when {
@@ -98,31 +107,38 @@ class MainActivity : AppCompatActivity() {
 
 
         resetButton.setOnClickListener {
+            convertSwitch.isChecked = false
+            unitOption.check(R.id.metric)
+            classCheckBox.isChecked = false
+
             weightLayout.editText?.setText("")
             heightLayout.editText?.setText("")
+
             image.visibility = View.INVISIBLE
             result.text = ""
             result.background = null
+
             weightLayout.error = null
             heightLayout.error = null
-
         }
 
 
     }
-}
+    private fun getValidNumber(input: TextInputLayout): Double? {
+        val value = input.editText?.text?.toString()
+            ?.trim()
+            ?.replace(',', '.')
+            ?.toDoubleOrNull()
 
-private fun validateInput(input: TextInputLayout): Boolean {
+        if (value == null || value <= 0) {
+            input.error = "Introduce un número mayor que 0"
+            return null
+        }
 
-    if (input.editText?.text.toString().isBlank() || input.editText?.text.toString()
-            .toDouble() < 0
-    ) {
-        input.error = "Invalid " + input.hint
-        return false;
-    } else {
         input.error = null
+        return value
     }
-
-    return true
 }
+
+
 

@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class ObjAgenda {
-
+    // EL SCRIPT FUNCIONA
     Scanner sc = new Scanner(System.in);
     Path file = getFile();
 

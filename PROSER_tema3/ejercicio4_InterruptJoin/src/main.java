@@ -18,7 +18,7 @@ public class main {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line.split(" ")[4]);
-                    }
+                    } 
                 }
 
                 try {
